@@ -4,6 +4,7 @@ public class Driver
 {
 	public static void main(String[] args)
 	{
+
 		DataReaderWriter readWrite = new DataReaderWriter("/src/names.dat", new File(System.getProperty("user.dir") + "/src/players.dat"));
 		CollectionOfPlayers collectionOfPlayers = new CollectionOfPlayers("/src/players.dat");
 		
@@ -15,6 +16,16 @@ public class Driver
 		
 		collectionOfPlayers.displayPlayers();
 		
+		Player foundThem = Driver.searchForPlayerByAge(collectionOfPlayers.getCollectionOfPlayers(), 99);
+		System.out.println("**************************************");
+		if(foundThem == null)
+		{
+			System.out.println("Did not find anybody with that age");
+		}
+		else
+		{
+			foundThem.display();
+		}
 		
 		
 	}
@@ -56,7 +67,6 @@ public class Driver
 			}
 			else
 			{
-				//either pos1 or pos2 is off the end of their list and the other guy is the default winner
 				if(pos1 > end1)
 				{
 					temp[i] = playerArray[pos2];
@@ -77,6 +87,33 @@ public class Driver
 			tempCounter++;
 		}
 	}
-}
+		
+	public static Player searchForPlayerByAge(Player[] playerArray, int age)
+		{
+			//binary sort
+			int begin = 0;
+			int end = playerArray.length - 1;
+			int middle;
+			
+			while(end >= begin)
+			{
+				middle = (begin + end) /2;
+				if(playerArray[middle].getAge() == age)
+				{
+					return playerArray[middle];
+				}
+				else if(age < playerArray[middle].getAge())
+				{
+					end = middle - 1;
+				}
+				else
+				{
+					begin = middle + 1;
+				}
+			}
+			return null;
+		}
+	}
+
 
 
