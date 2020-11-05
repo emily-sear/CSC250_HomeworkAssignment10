@@ -90,7 +90,7 @@ public class Driver
 		
 	public static Player searchForPlayerByAge(Player[] playerArray, int age)
 		{
-			//binary sort
+			//binary search... playerArray MUST be sorted 
 			int begin = 0;
 			int end = playerArray.length - 1;
 			int middle;
